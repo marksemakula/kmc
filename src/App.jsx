@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Changed from HashRouter
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
@@ -7,6 +7,7 @@ import Referral from './pages/Referral';
 import Careers from './pages/Careers';
 import AdminPanel from './pages/AdminPanel';
 import Telemedicine from './pages/Telemedicine';
+import PartnerForm from './components/PartnerForm';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
             <Route path="/careers" element={<Careers />} />
             <Route path="/admin" element={<AdminPanel />} />
             <Route path="/telemedicine" element={<Telemedicine />} />
+            <Route path="/become-a-partner" element={<PartnerForm />} />
           </Routes>
         </main>
         <Footer />

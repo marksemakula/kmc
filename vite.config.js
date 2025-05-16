@@ -4,20 +4,26 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', // Critical for Netlify deployment
+  base: '/',
   server: {
-    port: 3000, // Optional: Set your preferred dev server port
+    port: 3000,
+    historyApiFallback: true, // Added for BrowserRouter support
+    strictPort: true, // Ensures Vite fails if port is in use
+  },
+  preview: {
+    port: 3000, // Optional: Set preview port to match dev server
+    historyApiFallback: true // Added for preview mode
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src') // Path aliases
+      '@': path.resolve(__dirname, './src')
     }
   },
   build: {
     outDir: 'dist',
-    emptyOutDir: true, // Clears dist folder before build
-    sourcemap: true, // Helps with debugging
-    chunkSizeWarningLimit: 1600, // Adjust based on your needs
+    emptyOutDir: true,
+    sourcemap: true,
+    chunkSizeWarningLimit: 1600,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -43,6 +49,7 @@ export default defineConfig({
       'react',
       'react-dom',
       'react-router-dom'
-    ]
+    ],
+    exclude: ['js-big-decimal'] // Optional: Add any dependencies to exclude
   }
 });
