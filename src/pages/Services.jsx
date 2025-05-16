@@ -83,7 +83,7 @@ export default function Services() {
       >
         <h2 className="text-3xl font-bold mb-4">Need Emergency Care?</h2>
         <p className="text-xl mb-6">Our emergency department is available 24/7</p>
-        <div className="text-4xl font-bold text-accent">+256 789 123 456</div>
+        <div className="text-4xl font-bold text-accent">+256 784 628 883</div>
       </motion.div>
     </div>
   );
