@@ -1,12 +1,23 @@
 import { Link } from 'react-router-dom';
 import { FaHospital, FaBars } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 10);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="bg-primary text-white shadow-lg">
+    <nav className={`sticky top-0 z-50 bg-primary text-white transition-shadow duration-300 ${
+      hasScrolled ? 'shadow-xl' : 'shadow-lg'
+    }`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
