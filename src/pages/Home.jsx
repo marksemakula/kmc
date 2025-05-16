@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
 import { FaStethoscope, FaUserMd, FaHospital } from 'react-icons/fa';
+import PartnersCarousel from '../components/PartnersCarousel';
 
 export default function Home() {
   return (
     <div className="space-y-12">
+      {/* Hero Section */}
       <section className="text-center py-16 bg-gradient-to-r from-primary to-primary-dark text-white rounded-lg">
-        {/* Logo with optimized path and styling */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -13,9 +14,9 @@ export default function Home() {
           className="flex justify-center mb-6"
         >
           <img 
-            src="/images/Keyawell-Logo-1-preview.png" // Updated to public-relative path
+            src="/images/Keyawell-Logo-1-preview.png"
             alt="Keyawell Medical Center Logo"
-            className="h-64 w-auto object-contain" // Adjusted size and added object-contain
+            className="h-64 w-auto object-contain"
           />
         </motion.div>
         
@@ -37,6 +38,7 @@ export default function Home() {
         </motion.p>
       </section>
 
+      {/* Features Section */}
       <section className="grid md:grid-cols-3 gap-8">
         {[
           {
@@ -68,6 +70,15 @@ export default function Home() {
           </motion.div>
         ))}
       </section>
+
+      {/* Partners Carousel Section */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+      >
+        <PartnersCarousel />
+      </motion.section>
     </div>
   );
 }
