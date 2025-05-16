@@ -3,7 +3,6 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig(({ mode }) => {
-  // Load environment variables based on mode (development/production)
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
@@ -12,23 +11,39 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env': {
         VITE_DEEPSEEK_API_KEY: JSON.stringify(env.VITE_DEEPSEEK_API_KEY),
-        // Preserve other env variables if needed
         ...process.env
       }
     },
     server: {
       port: 3000,
-      historyApiFallback: true,
       strictPort: true,
+      proxy: {
+        '/api': {
+          target: 'https://api.deepseek.com',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+            'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Authorization'
+          }
+        }
+      },
+      cors: {
+        origin: true,
+        credentials: true
+      }
     },
     preview: {
       port: 3000,
-      historyApiFallback: true
+      cors: {
+        origin: true,
+        credentials: true
+      }
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
-        // Add any additional aliases if needed
+        '@': path.resolve(__dirname, './src')
       }
     },
     build: {
@@ -45,7 +60,7 @@ export default defineConfig(({ mode }) => {
               'react-router-dom', 
               'react-redux', 
               '@reduxjs/toolkit',
-              'react-responsive' // Added for chat responsiveness
+              'react-responsive'
             ],
             ui: ['framer-motion', 'react-icons'],
             charts: ['echarts', 'echarts-for-react'],
@@ -62,7 +77,7 @@ export default defineConfig(({ mode }) => {
         'react',
         'react-dom',
         'react-router-dom',
-        'react-responsive' // Added for optimization
+        'react-responsive'
       ],
       exclude: ['js-big-decimal']
     }
