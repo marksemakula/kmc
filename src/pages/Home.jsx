@@ -15,7 +15,7 @@ export default function Home() {
           <img 
             src="/images/Keyawell-Logo-1-preview.png" // Updated to public-relative path
             alt="Keyawell Medical Center Logo"
-            className="h-56 w-auto object-contain" // Adjusted size and added object-contain
+            className="h-64 w-auto object-contain" // Adjusted size and added object-contain
           />
         </motion.div>
         
