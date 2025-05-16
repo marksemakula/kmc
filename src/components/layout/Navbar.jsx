@@ -11,7 +11,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
             <FaHospital className="text-2xl" />
-            <span className="font-display text-xl font-bold">Keyawell Medical</span>
+            <span className="font-display text-xl font-bold">Keyawell Medical Center</span>
           </Link>
           
           <div className="hidden md:flex space-x-8">

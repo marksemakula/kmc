@@ -24,8 +24,13 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        display: ['Montserrat', 'sans-serif']
+        // For Urbanist
+        sans: ['Urbanist', 'sans-serif'],
+        display: ['Urbanist', 'sans-serif'],
+        
+        // OR for Urbanist
+        // sans: ['Urbanist', 'sans-serif'],
+        // display: ['Urbanist', 'sans-serif']
       }
     },
   },
