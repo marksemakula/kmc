@@ -35,7 +35,6 @@ const FloatingChat = ({ apiKey, initialMessage = "Hello! How can I help you toda
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
-    // Clear unread messages when opening chat
     if (!isOpen) {
       setHasUnreadMessages(false);
     }
@@ -50,7 +49,7 @@ const FloatingChat = ({ apiKey, initialMessage = "Hello! How can I help you toda
     setIsLoading(true);
 
     try {
-      const response = await fetchAIResponse(inputValue);
+      const response = await mockAIResponse(inputValue); // Using mock for now
       const botMessage = { text: response, sender: 'bot' };
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
@@ -65,104 +64,86 @@ const FloatingChat = ({ apiKey, initialMessage = "Hello! How can I help you toda
     }
   };
 
-  const fetchAIResponse = async (message) => {
-    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
-      },
-      body: JSON.stringify({
-        model: "deepseek-chat",
-        messages: [
-          ...messages.map(msg => ({
-            role: msg.sender === 'user' ? 'user' : 'assistant',
-            content: msg.text
-          })),
-          { role: 'user', content: message }
-        ],
-        temperature: 0.7,
-        max_tokens: 1000
-      })
+  // Mock response function for testing UI
+  const mockAIResponse = async (message) => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(`This is a mock response to: "${message}". The API connection is being tested.`);
+      }, 1000);
     });
-
-    if (!response.ok) {
-      throw new Error(`API request failed with status ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data.choices[0].message.content;
   };
 
   return (
     <div className={`fixed z-50 ${isMobile ? 'bottom-6 right-6' : 'bottom-8 right-8'}`}>
       {isOpen ? (
-        <div className={`bg-white rounded-lg shadow-xl flex flex-col transition-all duration-200 ${
-          isMobile ? 'w-72 h-80' : 'w-80 h-96'
-        }`}>
+        <div className={`bg-white rounded-lg shadow-xl flex flex-col ${isMobile ? 'w-72 h-80' : 'w-80 h-96'}`}>
+          {/* Header */}
           <div className="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
-            <h3 className="font-semibold">AI Assistant</h3>
+            <h3 className="font-semibold text-lg">AI Assistant</h3>
             <button 
               onClick={toggleChat} 
               className="text-white hover:text-gray-200 focus:outline-none"
               aria-label="Close chat"
             >
-              <FaTimes />
+              <FaTimes className="text-xl" />
             </button>
           </div>
           
-          <div className="flex-1 p-3 overflow-y-auto">
+          {/* Messages Container */}
+          <div className="flex-1 p-3 overflow-y-auto bg-gray-50">
             {messages.map((msg, index) => (
               <div 
                 key={index} 
-                className={`mb-2 p-2 rounded-lg ${isMobile ? 'max-w-[90%]' : 'max-w-xs'} ${
+                className={`mb-3 p-3 rounded-lg max-w-[80%] ${
                   msg.sender === 'user' 
                     ? 'bg-blue-100 ml-auto' 
-                    : 'bg-gray-100 mr-auto'
+                    : 'bg-gray-200 mr-auto'
                 }`}
               >
                 {msg.text}
               </div>
             ))}
             {isLoading && (
-              <div className={`mb-2 p-2 rounded-lg bg-gray-100 mr-auto ${
-                isMobile ? 'max-w-[90%]' : 'max-w-xs'
-              }`}>
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100"></div>
-                  <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200"></div>
+              <div className="mb-3 p-3 rounded-lg bg-gray-200 mr-auto max-w-[80%]">
+                <div className="flex space-x-2">
+                  <div className="w-3 h-3 bg-gray-500 rounded-full animate-bounce"></div>
+                  <div className="w-3 h-3 bg-gray-500 rounded-full animate-bounce delay-100"></div>
+                  <div className="w-3 h-3 bg-gray-500 rounded-full animate-bounce delay-200"></div>
                 </div>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
           
-          <div className="p-3 border-t flex">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="Type your message..."
-              className="flex-1 border rounded-l-lg p-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
-              disabled={isLoading}
-            />
-            <button
-              onClick={handleSendMessage}
-              disabled={isLoading || !inputValue.trim()}
-              className="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700 disabled:bg-blue-300 transition-colors"
-              aria-label="Send message"
-            >
-              <FaPaperPlane />
-            </button>
+          {/* Input Area */}
+          <div className="p-3 border-t border-gray-200 bg-white">
+            <div className="flex">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                placeholder="Type your message..."
+                className="flex-1 border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                disabled={isLoading}
+              />
+              <button
+                onClick={handleSendMessage}
+                disabled={isLoading || !inputValue.trim()}
+                className="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700 disabled:bg-blue-400 transition-colors"
+                aria-label="Send message"
+              >
+                <FaPaperPlane className="text-lg" />
+              </button>
+            </div>
           </div>
         </div>
       ) : (
         <button
           onClick={toggleChat}
-          className={`bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all relative
-            ${isMobile ? 'p-3' : 'p-4'}`}
+          className={`bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all relative ${
+            isMobile ? 'p-3' : 'p-4'
+          }`}
           aria-label="Open chat"
         >
           <FaComment size={isMobile ? 20 : 24} />
