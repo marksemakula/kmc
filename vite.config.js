@@ -2,84 +2,57 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
+  // Load env file based on `mode` in the current working directory.
+  // Set the third parameter to '' to load all env regardless of `VITE_` prefix.
   const env = loadEnv(mode, process.cwd(), '');
+
+  // Only expose VITE_* environment variables to the client for security
+  const clientEnv = {};
+  Object.keys(env).forEach((key) => {
+    if (key.startsWith('VITE_')) {
+      clientEnv[key] = env[key];
+    }
+  });
 
   return {
     plugins: [react()],
-    base: '/',
     define: {
-      'process.env': {
-        VITE_DEEPSEEK_API_KEY: JSON.stringify(env.VITE_DEEPSEEK_API_KEY),
-        ...process.env
-      }
+      'process.env': clientEnv, // Only expose VITE_* variables to client
     },
     server: {
       port: 3000,
-      strictPort: true,
+      open: true, // Automatically open the app in browser
       proxy: {
-        '/api': {
-          target: 'https://api.deepseek.com',
+        '/openai': {
+          target: 'https://api.openai.com',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (path) => path.replace(/^\/openai/, ''),
           headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-            'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Authorization'
+            'Authorization': `Bearer ${env.VITE_OPENAI_API_KEY}`
           }
         }
-      },
-      cors: {
-        origin: true,
-        credentials: true
-      }
-    },
-    preview: {
-      port: 3000,
-      cors: {
-        origin: true,
-        credentials: true
       }
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src')
+        '@': path.resolve(__dirname, './src'),
+        // Add more aliases if needed
       }
     },
     build: {
       outDir: 'dist',
       emptyOutDir: true,
-      sourcemap: true,
-      chunkSizeWarningLimit: 1600,
-      rollupOptions: {
-        output: {
-          manualChunks: {
-            vendor: [
-              'react', 
-              'react-dom', 
-              'react-router-dom', 
-              'react-redux', 
-              '@reduxjs/toolkit',
-              'react-responsive'
-            ],
-            ui: ['framer-motion', 'react-icons'],
-            charts: ['echarts', 'echarts-for-react'],
-            utils: ['date-fns', 'xlsx']
-          },
-          entryFileNames: `assets/[name].[hash].js`,
-          chunkFileNames: `assets/[name].[hash].js`,
-          assetFileNames: `assets/[name].[hash].[ext]`
-        }
-      }
+      sourcemap: mode !== 'production', // Generate sourcemaps in dev
+      minify: 'terser', // Enable minification in production
+      terserOptions: {
+        compress: {
+          drop_console: mode === 'production', // Remove console.log in production
+        },
+      },
     },
-    optimizeDeps: {
-      include: [
-        'react',
-        'react-dom',
-        'react-router-dom',
-        'react-responsive'
-      ],
-      exclude: ['js-big-decimal']
+    preview: {
+      port: 3000 // Same as dev server for consistency
     }
   };
 });

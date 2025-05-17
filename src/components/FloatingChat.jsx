@@ -10,15 +10,12 @@ const FloatingChat = ({ apiKey, initialMessage = "Hello! How can I help you toda
   const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
   const messagesEndRef = useRef(null);
   
-  // Detect mobile view
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
-  // On desktop, open by default; on mobile, start as icon
   useEffect(() => {
     setIsOpen(!isMobile);
   }, [isMobile]);
 
-  // Track unread messages when chat is closed
   useEffect(() => {
     if (!isOpen && messages.length > 1) {
       setHasUnreadMessages(true);
@@ -35,9 +32,7 @@ const FloatingChat = ({ apiKey, initialMessage = "Hello! How can I help you toda
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
-    if (!isOpen) {
-      setHasUnreadMessages(false);
-    }
+    if (!isOpen) setHasUnreadMessages(false);
   };
 
   const handleSendMessage = async () => {
@@ -49,73 +44,117 @@ const FloatingChat = ({ apiKey, initialMessage = "Hello! How can I help you toda
     setIsLoading(true);
 
     try {
-      const response = await mockAIResponse(inputValue); // Using mock for now
+      const response = await fetchAIResponse(inputValue);
       const botMessage = { text: response, sender: 'bot' };
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
       console.error('API Error:', error);
-      const errorMessage = { 
-        text: "Sorry, I'm having trouble connecting. Please try again later.", 
+      setMessages(prev => [...prev, { 
+        text: getErrorMessage(error),
         sender: 'bot' 
-      };
-      setMessages(prev => [...prev, errorMessage]);
+      }]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Mock response function for testing UI
-  const mockAIResponse = async (message) => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(`This is a mock response to: "${message}". The API connection is being tested.`);
-      }, 1000);
-    });
+  const getErrorMessage = (error) => {
+    if (error.message.includes('API key')) {
+      return "Authentication failed. Please check your API key.";
+    }
+    if (error.message.includes('credit')) {
+      return "I'm unable to respond right now (API limit reached).";
+    }
+    return "Sorry, I'm having trouble connecting. Please try again later.";
+  };
+
+  const fetchAIResponse = async (message) => {
+    if (!apiKey) {
+      console.error('API key is missing');
+      throw new Error('API key is missing');
+    }
+
+    try {
+      console.log('Using API key:', apiKey ? '***REDACTED***' : 'MISSING');
+      
+      const response = await fetch('/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content: "You are a helpful assistant. Respond concisely."
+            },
+            ...messages.filter(msg => msg.sender === 'user').map(msg => ({
+              role: "user",
+              content: msg.text
+            })),
+            { role: "user", content: message }
+          ],
+          temperature: 0.7,
+          max_tokens: 500
+        })
+      });
+
+      console.log('API response status:', response.status);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('API error details:', errorData);
+        throw new Error(errorData.error?.message || `API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('API response data:', data);
+      
+      if (!data.choices?.[0]?.message?.content) {
+        throw new Error('Invalid response format from API');
+      }
+
+      return data.choices[0].message.content;
+    } catch (error) {
+      console.error('Full API error:', error);
+      throw error;
+    }
   };
 
   return (
     <div className={`fixed z-50 ${isMobile ? 'bottom-6 right-6' : 'bottom-8 right-8'}`}>
       {isOpen ? (
         <div className={`bg-white rounded-lg shadow-xl flex flex-col ${isMobile ? 'w-72 h-80' : 'w-80 h-96'}`}>
-          {/* Header */}
           <div className="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
-            <h3 className="font-semibold text-lg">AI Assistant</h3>
-            <button 
-              onClick={toggleChat} 
-              className="text-white hover:text-gray-200 focus:outline-none"
-              aria-label="Close chat"
-            >
-              <FaTimes className="text-xl" />
+            <h3 className="font-semibold">AI Assistant</h3>
+            <button onClick={toggleChat} className="text-white hover:text-gray-200">
+              <FaTimes />
             </button>
           </div>
           
-          {/* Messages Container */}
           <div className="flex-1 p-3 overflow-y-auto bg-gray-50">
             {messages.map((msg, index) => (
-              <div 
-                key={index} 
-                className={`mb-3 p-3 rounded-lg max-w-[80%] ${
-                  msg.sender === 'user' 
-                    ? 'bg-blue-100 ml-auto' 
-                    : 'bg-gray-200 mr-auto'
-                }`}
-              >
+              <div key={index} className={`mb-2 p-3 rounded-lg max-w-[80%] ${
+                msg.sender === 'user' ? 'bg-blue-100 ml-auto' : 'bg-gray-200 mr-auto'
+              }`}>
                 {msg.text}
               </div>
             ))}
             {isLoading && (
-              <div className="mb-3 p-3 rounded-lg bg-gray-200 mr-auto max-w-[80%]">
+              <div className="mb-2 p-3 rounded-lg bg-gray-200 mr-auto max-w-[80%]">
                 <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-gray-500 rounded-full animate-bounce"></div>
-                  <div className="w-3 h-3 bg-gray-500 rounded-full animate-bounce delay-100"></div>
-                  <div className="w-3 h-3 bg-gray-500 rounded-full animate-bounce delay-200"></div>
+                  {[...Array(3)].map((_, i) => (
+                    <div key={i} className="w-3 h-3 bg-gray-500 rounded-full animate-bounce" 
+                      style={{ animationDelay: `${i * 100}ms` }} />
+                  ))}
                 </div>
               </div>
             )}
             <div ref={messagesEndRef} />
           </div>
           
-          {/* Input Area */}
           <div className="p-3 border-t border-gray-200 bg-white">
             <div className="flex">
               <input
@@ -124,16 +163,15 @@ const FloatingChat = ({ apiKey, initialMessage = "Hello! How can I help you toda
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
                 placeholder="Type your message..."
-                className="flex-1 border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 border border-gray-300 rounded-l-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 disabled={isLoading}
               />
               <button
                 onClick={handleSendMessage}
                 disabled={isLoading || !inputValue.trim()}
                 className="bg-blue-600 text-white p-2 rounded-r-lg hover:bg-blue-700 disabled:bg-blue-400 transition-colors"
-                aria-label="Send message"
               >
-                <FaPaperPlane className="text-lg" />
+                <FaPaperPlane />
               </button>
             </div>
           </div>
@@ -144,7 +182,6 @@ const FloatingChat = ({ apiKey, initialMessage = "Hello! How can I help you toda
           className={`bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all relative ${
             isMobile ? 'p-3' : 'p-4'
           }`}
-          aria-label="Open chat"
         >
           <FaComment size={isMobile ? 20 : 24} />
           {hasUnreadMessages && (
