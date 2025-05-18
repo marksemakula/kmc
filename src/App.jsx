@@ -9,6 +9,8 @@ import Referral from './pages/Referral';
 import Careers from './pages/Careers';
 import AdminPanel from './pages/AdminPanel';
 import Telemedicine from './pages/Telemedicine';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import PartnerForm from './components/PartnerForm';
 import FloatingChat from './components/FloatingChat';
 
@@ -19,7 +21,7 @@ function ScrollToTop() {
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' // Optional: adds smooth scrolling
+      behavior: 'smooth'
     });
   }, [pathname]);
 
@@ -32,10 +34,12 @@ export default function App() {
       <div className="min-h-screen bg-gray-50 relative">
         <ScrollToTop />
         <Navbar />
-        <main className="container mx-auto px-4 pt-16 pb-8"> {/* Added pt-16 for navbar spacing */}
+        <main className="container mx-auto px-4 pt-16 pb-8">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/referral" element={<Referral />} />
             <Route path="/careers" element={<Careers />} />
             <Route path="/admin" element={<AdminPanel />} />
@@ -44,8 +48,6 @@ export default function App() {
           </Routes>
         </main>
         <Footer />
-        
-        {/* Floating Chat Component - Added here to appear on all pages */}
         <FloatingChat apiKey={import.meta.env.VITE_DEEPSEEK_API_KEY} />
       </div>
     </Router>

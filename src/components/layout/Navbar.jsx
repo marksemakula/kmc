@@ -26,26 +26,60 @@ export default function Navbar() {
           </Link>
           
           <div className="hidden md:flex space-x-8">
-            <Link to="/" className="hover:text-accent">Home</Link>
-            <Link to="/services" className="hover:text-accent">Services</Link>
-            <Link to="/referral" className="hover:text-accent">Referral</Link>
-            <Link to="/careers" className="hover:text-accent">Careers</Link>
+            <Link to="/" className="hover:text-accent transition-colors duration-200">Home</Link>
+            <Link to="/services" className="hover:text-accent transition-colors duration-200">Services</Link>
+            <Link to="/blog" className="hover:text-accent transition-colors duration-200">Blog</Link>
+            <Link to="/referral" className="hover:text-accent transition-colors duration-200">Referral</Link>
+            <Link to="/careers" className="hover:text-accent transition-colors duration-200">Careers</Link>
           </div>
 
           <button 
-            className="md:hidden"
+            className="md:hidden focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
           >
             <FaBars className="text-2xl" />
           </button>
         </div>
 
+        {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden pb-4">
-            <Link to="/" className="block py-2 hover:text-accent">Home</Link>
-            <Link to="/services" className="block py-2 hover:text-accent">Services</Link>
-            <Link to="/referral" className="block py-2 hover:text-accent">Referral</Link>
-            <Link to="/careers" className="block py-2 hover:text-accent">Careers</Link>
+          <div className="md:hidden pb-4 space-y-2">
+            <Link 
+              to="/" 
+              className="block py-2 px-4 hover:bg-primary-dark rounded transition-colors duration-200"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <Link 
+              to="/services" 
+              className="block py-2 px-4 hover:bg-primary-dark rounded transition-colors duration-200"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Services
+            </Link>
+            <Link 
+              to="/blog" 
+              className="block py-2 px-4 hover:bg-primary-dark rounded transition-colors duration-200"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Blog
+            </Link>
+            <Link 
+              to="/referral" 
+              className="block py-2 px-4 hover:bg-primary-dark rounded transition-colors duration-200"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Referral
+            </Link>
+            <Link 
+              to="/careers" 
+              className="block py-2 px-4 hover:bg-primary-dark rounded transition-colors duration-200"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Careers
+            </Link>
           </div>
         )}
       </div>
