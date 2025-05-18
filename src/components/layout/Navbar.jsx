@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaHospital, FaBars } from 'react-icons/fa';
+import { FaBars } from 'react-icons/fa';
 import { useState, useEffect } from 'react';
 
 export default function Navbar() {
@@ -21,7 +21,16 @@ export default function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="flex items-center space-x-2">
-            <FaHospital className="text-2xl" />
+            {/* Logo from public folder */}
+            <img 
+              src="/images/navbar-logo.png" 
+              alt="Keyawell Logo"
+              className="h-6 w-auto"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = '/images/fallback-logo.png'; // Optional fallback
+              }}
+            />
             <span className="font-display text-xl font-bold">Keyawell Medical Center</span>
           </Link>
           
