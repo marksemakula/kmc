@@ -38,7 +38,9 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-600 mt-8 pt-8 text-center">
-          <p>&copy; {new Date().getFullYear()} Keyawell Medical Center | Inzozi - https://www.inzozi.co . All rights reserved.</p>
+        <p> &copy; {new Date().getFullYear()} Keyawell Medical Center |  
+            <a href="https://www.inzozi.co" target="_blank" rel="noopener noreferrer">   Inzozi  </a>. All rights reserved.
+        </p>
         </div>
       </div>
     </footer>
