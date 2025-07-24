@@ -28,7 +28,7 @@ export default function PartnersCarousel() {
   return (
     <section className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8 text-primary-dark">Our Trusted Partners</h2>
+        <h2 className="text-3xl font-bold text-center mb-8 text-primary-dark">Our Insurance Partners</h2>
         
         <div className="flex justify-center space-x-8">
           {visiblePartners.map((partner) => (
