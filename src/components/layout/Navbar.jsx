@@ -23,12 +23,12 @@ export default function Navbar() {
           <Link to="/" className="flex items-center space-x-2">
             {/* Logo from public folder */}
             <img 
-              src="/images/navbar-logo.png" 
+              src="/images/Keyawell.png" 
               alt="Keyawell Logo"
               className="h-6 w-auto"
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = '/images/fallback-logo.png'; // Optional fallback
+                e.target.src = '/images/Keyawell.png'; // Optional fallback
               }}
             />
             <span className="font-display text-xl font-bold">Keyawell Medical Center</span>
