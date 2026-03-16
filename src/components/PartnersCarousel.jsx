@@ -34,14 +34,14 @@ export default function PartnersCarousel() {
           {visiblePartners.map((partner) => (
             <motion.div
               key={partner.id}
-              className="p-4 bg-white rounded-lg shadow-md flex items-center justify-center h-32 w-64"
+              className="flex items-center justify-center h-16 w-32"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
               <img 
                 src={partner.logo} 
                 alt={partner.name} 
-                className="max-h-full max-w-full object-contain"
+                className="max-h-full max-w-full object-contain grayscale hover:grayscale-0 transition-all duration-300"
               />
             </motion.div>
           ))}

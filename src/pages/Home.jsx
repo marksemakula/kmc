@@ -1,12 +1,11 @@
 import { motion } from 'framer-motion';
-import { FaStethoscope, FaUserMd, FaHospital } from 'react-icons/fa';
 import PartnersCarousel from '../components/PartnersCarousel';
 
 export default function Home() {
   return (
-    <div className="space-y-12">
-      {/* Hero Section */}
-      <section className="text-center py-16 bg-gradient-to-r from-primary to-primary-dark text-white rounded-lg">
+    <div>
+      {/* Hero Section - Combined with Navbar */}
+      <section className="text-center py-20 bg-gradient-to-r from-primary to-primary-dark text-white w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -29,7 +28,7 @@ export default function Home() {
           Welcome to Keyawell Medical Center
         </motion.h1>
         <motion.p 
-          className="text-xl max-w-2xl mx-auto"
+          className="text-xl max-w-2xl mx-auto px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -38,41 +37,9 @@ export default function Home() {
         </motion.p>
       </section>
 
-      {/* Features Section */}
-      <section className="grid md:grid-cols-3 gap-8">
-        {[
-          {
-            icon: <FaStethoscope className="text-4xl" />,
-            title: "Expert Care",
-            description: "Experienced medical professionals dedicated to your health"
-          },
-          {
-            icon: <FaUserMd className="text-4xl" />,
-            title: "Specialized Services",
-            description: "Comprehensive medical services tailored to your needs"
-          },
-          {
-            icon: <FaHospital className="text-4xl" />,
-            title: "Modern Facilities",
-            description: "State-of-the-art medical equipment and comfortable environment"
-          }
-        ].map((feature, index) => (
-          <motion.div
-            key={index}
-            className="p-6 bg-white rounded-lg shadow-lg text-center hover:shadow-xl transition-shadow duration-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 + 0.4 }}
-          >
-            <div className="text-primary mb-4">{feature.icon}</div>
-            <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-            <p className="text-gray-600">{feature.description}</p>
-          </motion.div>
-        ))}
-      </section>
-
       {/* Partners Carousel Section */}
       <motion.section
+        className="container mx-auto px-4 mt-12"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.6 }}
