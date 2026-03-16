@@ -25,7 +25,9 @@ export default {
       },
       fontFamily: {
         sans: ['Ubuntu', 'sans-serif'],
-        display: ['Ubuntu', 'sans-serif']
+        display: ['Ubuntu', 'sans-serif'],
+        brush: ['Arthelo Brush', 'cursive'],
+        cinzel: ['Cinzel', 'serif']
       }
     },
   },

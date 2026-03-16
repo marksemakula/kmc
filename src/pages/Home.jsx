@@ -21,7 +21,8 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                Welcome to Keyawell Medical Center
+                <span className="font-brush text-5xl md:text-6xl" style={{ color: '#FF00FF' }}>Welcome to</span>{' '}
+                <span className="font-cinzel font-light">Keyawell Medical Center</span>
               </motion.h1>
               <motion.p 
                 className="text-xl max-w-2xl"
@@ -43,11 +44,16 @@ export default function Home() {
               <img 
                 src="/images/Keyawell-Logo-1-preview.png"
                 alt="Keyawell Medical Center Logo"
-                className="h-48 w-auto object-contain"
+                className="h-72 w-auto object-contain"
               />
             </motion.div>
           </div>
         </div>
+        
+        {/* Bottom fade gradient overlay */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" style={{
+          background: 'linear-gradient(to bottom, rgba(0, 85, 164, 0) 0%, rgba(243, 244, 246, 0.3) 40%, rgba(243, 244, 246, 0.7) 70%, rgb(243, 244, 246) 100%)'
+        }} />
       </section>
 
       {/* Partners Carousel Section */}

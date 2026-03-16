@@ -96,7 +96,7 @@ export default function Footer() {
                 />
               </motion.div>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Providing comprehensive healthcare services.
+                Comprehensive healthcare services.
               </p>
               <div className="flex justify-center space-x-4 md:justify-start">
                 {socialLinks.map((social, index) => (
@@ -190,7 +190,7 @@ export default function Footer() {
             variants={itemVariants}
           >
             <p className="text-gray-600 text-sm">
-              © {new Date().getFullYear()} Keyawell Medical Center | All rights reserved.
+              © {new Date().getFullYear()} <span className="font-cinzel font-light">Keyawell Medical Center</span> | All rights reserved.
             </p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0 flex-wrap justify-center">
               <Link
