@@ -21,7 +21,7 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <span className="font-brush text-5xl md:text-6xl" style={{ color: '#FF00FF' }}>Welcome to</span>{' '}
+                <span className="font-brush text-3xl md:text-4xl" style={{ color: '#FF00FF' }}>Welcome to</span>{' '}
                 <span className="font-cinzel font-light">Keyawell Medical Center</span>
               </motion.h1>
               <motion.p 
