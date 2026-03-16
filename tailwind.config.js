@@ -24,13 +24,8 @@ export default {
         }
       },
       fontFamily: {
-        // For Urbanist
-        sans: ['Urbanist', 'sans-serif'],
-        display: ['Urbanist', 'sans-serif'],
-        
-        // OR for Urbanist
-        // sans: ['Urbanist', 'sans-serif'],
-        // display: ['Urbanist', 'sans-serif']
+        sans: ['Ubuntu', 'sans-serif'],
+        display: ['Ubuntu', 'sans-serif']
       }
     },
   },
