@@ -174,7 +174,7 @@ export default function App() {
         <ScrollToTop />
         <Navbar />
         <motion.main
-          className="container mx-auto px-4 pt-16 pb-8 flex-grow"
+          className="container mx-auto px-4 pt-16 pb-2 flex-grow"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}

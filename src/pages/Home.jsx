@@ -5,41 +5,54 @@ export default function Home() {
   return (
     <div>
       {/* Hero Section - Combined with Navbar */}
-      <section className="text-center py-20 bg-gradient-to-r from-primary to-primary-dark text-white w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, type: 'spring' }}
-          className="flex justify-center mb-6"
-        >
-          <img 
-            src="/images/Keyawell-Logo-1-preview.png"
-            alt="Keyawell Medical Center Logo"
-            className="h-64 w-auto object-contain"
-          />
-        </motion.div>
-        
-        <motion.h1 
-          className="text-4xl md:text-5xl font-display font-bold mb-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          Welcome to Keyawell Medical Center
-        </motion.h1>
-        <motion.p 
-          className="text-xl max-w-2xl mx-auto px-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          Providing exceptional healthcare services with a focus on patient well-being
-        </motion.p>
+      <section className="py-12 bg-gradient-to-r from-primary to-primary-dark text-white w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            {/* Text Content - Left Side */}
+            <motion.div
+              className="flex-1 text-center md:text-left"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <motion.h1 
+                className="text-4xl md:text-5xl font-display font-bold mb-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                Welcome to Keyawell Medical Center
+              </motion.h1>
+              <motion.p 
+                className="text-xl max-w-2xl"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                Exceptional healthcare services with a focus on patient well-being
+              </motion.p>
+            </motion.div>
+
+            {/* Logo - Right Side */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, type: 'spring' }}
+              className="flex-shrink-0"
+            >
+              <img 
+                src="/images/Keyawell-Logo-1-preview.png"
+                alt="Keyawell Medical Center Logo"
+                className="h-48 w-auto object-contain"
+              />
+            </motion.div>
+          </div>
+        </div>
       </section>
 
       {/* Partners Carousel Section */}
       <motion.section
-        className="container mx-auto px-4 mt-12"
+        className="container mx-auto px-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.6 }}

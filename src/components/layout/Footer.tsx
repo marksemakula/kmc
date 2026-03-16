@@ -27,9 +27,9 @@ const quickLinks: QuickLink[] = [
 ];
 
 const contactInfo: ContactInfo[] = [
-  { icon: <FaPhone className="text-accent" size={16} />, text: '+256 700 251 453', type: 'phone' },
-  { icon: <FaEnvelope className="text-accent" size={16} />, text: 'service@keyawell.or.ug', type: 'email' },
-  { icon: <FaMapMarkerAlt className="text-accent mt-1" size={16} />, text: 'Uganda', type: 'address' },
+  { icon: <FaPhone className="text-primary" size={16} />, text: '+256 700 251 453', type: 'phone' },
+  { icon: <FaEnvelope className="text-primary" size={16} />, text: 'service@keyawell.or.ug', type: 'email' },
+  { icon: <FaMapMarkerAlt className="text-primary mt-1" size={16} />, text: 'Uganda', type: 'address' },
 ];
 
 const socialLinks: SocialLink[] = [
@@ -65,7 +65,7 @@ const itemVariants = {
 
 export default function Footer() {
   return (
-    <footer className="bg-primary-dark text-white mt-16">
+    <footer className="bg-gray-100 text-gray-800 mt-4">
       <div className="container mx-auto px-4 py-12">
         <motion.div
           className="max-w-6xl mx-auto"
@@ -88,14 +88,14 @@ export default function Footer() {
                 <img
                   src="/images/navbar-logo.png"
                   alt="Keyawell Logo"
-                  className="h-[140px] w-auto brightness-0 invert"
+                  className="h-[140px] w-auto"
                   onError={(e) => {
                     e.currentTarget.onerror = null;
                     e.currentTarget.src = '/images/fallback-logo.png';
                   }}
                 />
               </motion.div>
-              <p className="text-gray-300 text-sm leading-relaxed">
+              <p className="text-gray-600 text-sm leading-relaxed">
                 Providing comprehensive healthcare services.
               </p>
               <div className="flex justify-center space-x-4 md:justify-start">
@@ -103,7 +103,7 @@ export default function Footer() {
                   <motion.a
                     key={social.label}
                     href={social.url}
-                    className="text-gray-300 hover:text-accent transition-colors duration-300"
+                    className="text-gray-600 hover:text-primary transition-colors duration-300"
                     aria-label={social.label}
                     whileHover={{ scale: 1.2, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
@@ -133,7 +133,7 @@ export default function Footer() {
                   >
                     <Link
                       to={link.path}
-                      className="text-gray-300 hover:text-accent transition-all duration-300 text-sm inline-block hover:translate-x-1"
+                      className="text-gray-600 hover:text-primary transition-all duration-300 text-sm inline-block hover:translate-x-1"
                     >
                       {link.label}
                     </Link>
@@ -161,7 +161,7 @@ export default function Footer() {
                     whileHover={{ x: 5 }}
                   >
                     {contact.icon}
-                    <span className="text-gray-300 text-sm">{contact.text}</span>
+                    <span className="text-gray-600 text-sm">{contact.text}</span>
                   </motion.div>
                 ))}
               </div>
@@ -174,44 +174,44 @@ export default function Footer() {
             >
               <h3 className="font-semibold text-lg">Emergency</h3>
               <motion.p
-                className="text-2xl font-bold text-accent"
+                className="text-2xl font-bold text-primary"
                 whileHover={{ scale: 1.1 }}
                 transition={{ type: 'spring', stiffness: 300 }}
               >
                 +256 784 628 883
               </motion.p>
-              <p className="text-gray-300 text-sm mt-2">Available 24/7 for emergencies</p>
+              <p className="text-gray-600 text-sm mt-2">Available 24/7 for emergencies</p>
             </motion.div>
           </div>
 
           {/* Bottom Bar */}
           <motion.div
-            className="border-t border-gray-600 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center"
+            className="mt-4 pt-4 flex flex-col md:flex-row justify-between items-center"
             variants={itemVariants}
           >
-            <p className="text-gray-300 text-sm">
+            <p className="text-gray-600 text-sm">
               © {new Date().getFullYear()} Keyawell Medical Center | All rights reserved.
             </p>
             <div className="flex items-center space-x-6 mt-4 md:mt-0 flex-wrap justify-center">
               <Link
                 to="#"
-                className="text-gray-300 hover:text-accent transition-colors duration-300 text-sm"
+                className="text-gray-600 hover:text-primary transition-colors duration-300 text-sm"
               >
                 Privacy Policy
               </Link>
               <Link
                 to="#"
-                className="text-gray-300 hover:text-accent transition-colors duration-300 text-sm"
+                className="text-gray-600 hover:text-primary transition-colors duration-300 text-sm"
               >
                 Terms of Service
               </Link>
               <div className="flex items-center space-x-2">
-                <span className="text-gray-300 text-sm">Powered by</span>
+                <span className="text-gray-600 text-sm">Powered by</span>
                 <a href="https://www.inzozi.co" target="_blank" rel="noopener noreferrer">
                   <motion.img
                     src="/images/inzozi-logo.png"
                     alt="Inzozi Logo"
-                    className="h-11 w-auto brightness-0 invert"
+                    className="h-11 w-auto"
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: 'spring', stiffness: 300 }}
                     onError={(e) => {

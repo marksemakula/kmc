@@ -13,10 +13,6 @@ const FloatingChat = ({ apiKey, initialMessage = "Hello! How can I help you toda
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
   useEffect(() => {
-    setIsOpen(!isMobile);
-  }, [isMobile]);
-
-  useEffect(() => {
     if (!isOpen && messages.length > 1) {
       setHasUnreadMessages(true);
     }
