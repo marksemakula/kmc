@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FaStethoscope, FaHeartbeat, FaUserMd, FaHospital, FaAmbulance, FaFlask } from 'react-icons/fa';
+import Breadcrumb from '../components/layout/Breadcrumb';
 
 export default function Services() {
   const services = [
@@ -37,6 +38,7 @@ export default function Services() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <Breadcrumb items={[{ label: 'Services', path: '/services' }]} />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

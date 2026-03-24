@@ -5,6 +5,7 @@ import { setCurrentPost } from '../store/slices/blogSlice';
 import { motion } from 'framer-motion';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import Breadcrumb from '../components/layout/Breadcrumb';
 
 export default function BlogPost() {
   const { id } = useParams();
@@ -50,6 +51,12 @@ export default function BlogPost() {
       transition={{ duration: 0.5 }}
       className="container mx-auto px-4 py-12 max-w-4xl"
     >
+      <Breadcrumb
+        items={[
+          { label: 'Blog', path: '/blog' },
+          { label: currentPost.title, path: `/blog/${currentPost.id}` },
+        ]}
+      />
       <Link 
         to="/blog" 
         className="flex items-center text-primary hover:text-primary-dark mb-6"

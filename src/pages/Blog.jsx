@@ -1,16 +1,27 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaArrowLeft, FaArrowRight, FaSearch, FaTimes } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchBlogPosts, setCurrentPost } from '../store/slices/blogSlice';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useSwipeable } from 'react-swipeable';
+import Breadcrumb from '../components/layout/Breadcrumb';
 
 export default function Blog() {
   const dispatch = useDispatch();
   const { posts, status, error } = useSelector((state) => state.blog);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
+
+  // SitelinksSearchBox: read ?q= from the URL so Google's search box works.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') ?? '');
+
+  // Keep local input in sync with the URL param on initial load.
+  useEffect(() => {
+    const q = searchParams.get('q') ?? '';
+    setSearchQuery(q);
+  }, [searchParams]);
 
   useEffect(() => {
     dispatch(fetchBlogPosts());
@@ -46,6 +57,35 @@ export default function Blog() {
     if (window.innerWidth >= 1280) return 3;
     if (window.innerWidth >= 768) return 2;
     return 1;
+  };
+
+  // Filter posts by search query (title, category, excerpt)
+  const filteredPosts = searchQuery.trim()
+    ? posts.filter((post) => {
+        const q = searchQuery.toLowerCase();
+        return (
+          post.title?.toLowerCase().includes(q) ||
+          post.category?.toLowerCase().includes(q) ||
+          post.excerpt?.toLowerCase().includes(q)
+        );
+      })
+    : posts;
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const trimmed = searchQuery.trim();
+    if (trimmed) {
+      setSearchParams({ q: trimmed });
+    } else {
+      setSearchParams({});
+    }
+    setCurrentIndex(0);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery('');
+    setSearchParams({});
+    setCurrentIndex(0);
   };
 
   const visiblePosts = posts.slice(currentIndex, currentIndex + postsPerView());
@@ -102,7 +142,84 @@ export default function Blog() {
   // Success state
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold text-primary mb-8 text-center">Our Blog</h1>
+      <Breadcrumb items={[{ label: 'Blog', path: '/blog' }]} />
+
+      <h1 className="text-4xl font-bold text-primary mb-6 text-center">Our Blog</h1>
+
+      {/* Search bar — also the target of the SitelinksSearchBox schema */}
+      <form
+        onSubmit={handleSearchSubmit}
+        className="flex items-center max-w-lg mx-auto mb-10 gap-2"
+        role="search"
+        aria-label="Search blog posts"
+      >
+        <div className="relative flex-1">
+          <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+          <input
+            type="search"
+            name="q"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search articles…"
+            className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+            aria-label="Search blog posts"
+          />
+        </div>
+        <button
+          type="submit"
+          className="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary-dark transition-colors"
+        >
+          Search
+        </button>
+        {searchQuery && (
+          <button
+            type="button"
+            onClick={clearSearch}
+            className="p-2 text-gray-500 hover:text-primary transition-colors"
+            aria-label="Clear search"
+          >
+            <FaTimes />
+          </button>
+        )}
+      </form>
+
+      {/* Search results view */}
+      {searchQuery.trim() ? (
+        <div>
+          <p className="text-center text-gray-500 text-sm mb-8">
+            {filteredPosts.length} result{filteredPosts.length !== 1 ? 's' : ''} for &ldquo;{searchQuery.trim()}&rdquo;
+          </p>
+          {filteredPosts.length === 0 ? (
+            <div className="text-center py-16 text-gray-500">
+              No articles matched your search. <button onClick={clearSearch} className="text-primary hover:underline">Clear search</button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+              {filteredPosts.map((post) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col hover:shadow-xl transition-all duration-300"
+                >
+                  <div className="h-48 overflow-hidden">
+                    <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                  </div>
+                  <div className="p-6 flex-1 flex flex-col">
+                    <span className="inline-block px-3 py-1 bg-primary text-white text-xs font-semibold rounded-full mb-2 self-start">{post.category}</span>
+                    <h2 className="text-xl font-bold mb-2">{post.title}</h2>
+                    <p className="text-gray-600 mb-4 flex-1">{post.excerpt}</p>
+                    <div className="flex justify-between items-center mt-auto">
+                      <span className="text-sm text-gray-500">{post.date}</span>
+                      <Link to={`/blog/${post.id}`} className="text-primary font-semibold hover:underline" onClick={() => dispatch(setCurrentPost(post))}>Read More</Link>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
       
       <div className="relative max-w-7xl mx-auto" {...handlers}>
         {/* Carousel Navigation */}
@@ -193,6 +310,7 @@ export default function Blog() {
           ))}
         </div>
       </div>
+      )}
     </div>
   );
 }

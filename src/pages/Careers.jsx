@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import JobList from '../components/hr/JobList';
 import ApplicationForm from '../components/hr/ApplicationForm';
+import Breadcrumb from '../components/layout/Breadcrumb';
 
 export default function Careers() {
   const [selectedJob, setSelectedJob] = useState(null);
@@ -10,6 +11,7 @@ export default function Careers() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <Breadcrumb items={[{ label: 'Careers', path: '/careers' }]} />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

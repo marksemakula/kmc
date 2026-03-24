@@ -2,19 +2,21 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ReferralForm from '../components/referral/ReferralForm';
 import { FaClipboardList, FaCalendarAlt } from 'react-icons/fa';
+import Breadcrumb from '../components/layout/Breadcrumb';
 
 export default function Referral() {
   const [activeTab, setActiveTab] = useState('referral');
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <Breadcrumb items={[{ label: 'Referral', path: '/referral' }]} />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="max-w-4xl mx-auto"
       >
         <h1 className="text-3xl font-bold text-primary mb-8 text-center">
-          Patient Referral & Booking
+          Patient Referral &amp; Booking
         </h1>
 
         <div className="flex justify-center mb-8">

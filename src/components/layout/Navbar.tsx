@@ -106,6 +106,7 @@ export default function Navbar() {
       animate={hasScrolled ? 'scrolled' : 'top'}
       variants={navbarVariants}
       initial="top"
+      aria-label="Main navigation"
     >
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
@@ -132,39 +133,41 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-1">
+          <ul className="hidden md:flex space-x-1 list-none m-0 p-0" role="list">
             {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className="relative px-4 py-2 rounded-lg transition-colors duration-300"
-              >
-                <motion.span
-                  className={`relative z-10 ${
-                    isActiveLink(link.path)
-                      ? 'text-accent font-semibold'
-                      : 'text-white hover:text-accent'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+              <li key={link.path}>
+                <Link
+                  to={link.path}
+                  className="relative px-4 py-2 rounded-lg transition-colors duration-300 block"
+                  aria-current={isActiveLink(link.path) ? 'page' : undefined}
                 >
-                  {link.label}
-                </motion.span>
-                {isActiveLink(link.path) && (
-                  <motion.div
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"
-                    layoutId="activeLink"
-                    initial={false}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  />
-                )}
-              </Link>
+                  <motion.span
+                    className={`relative z-10 ${
+                      isActiveLink(link.path)
+                        ? 'text-accent font-semibold'
+                        : 'text-white hover:text-accent'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {link.label}
+                  </motion.span>
+                  {isActiveLink(link.path) && (
+                    <motion.div
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"
+                      layoutId="activeLink"
+                      initial={false}
+                      transition={{
+                        type: 'spring',
+                        stiffness: 380,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
 
           {/* Mobile Menu Button */}
           <motion.button
@@ -209,9 +212,9 @@ export default function Navbar() {
               exit="closed"
               variants={mobileMenuVariants}
             >
-              <div className="pb-4 space-y-1">
+              <ul className="pb-4 space-y-1 list-none m-0 p-0" role="list">
                 {navLinks.map((link) => (
-                  <motion.div key={link.path} variants={menuItemVariants}>
+                  <motion.li key={link.path} variants={menuItemVariants}>
                     <Link
                       to={link.path}
                       className={`block py-3 px-4 rounded-lg transition-all duration-200 ${
@@ -220,12 +223,13 @@ export default function Navbar() {
                           : 'hover:bg-primary-dark hover:pl-6'
                       }`}
                       onClick={() => setIsMenuOpen(false)}
+                      aria-current={isActiveLink(link.path) ? 'page' : undefined}
                     >
                       {link.label}
                     </Link>
-                  </motion.div>
+                  </motion.li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
           )}
         </AnimatePresence>
