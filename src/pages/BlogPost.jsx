@@ -7,11 +7,48 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../components/layout/Breadcrumb';
 import ReactMarkdown from 'react-markdown';
+import StructuredData from '../components/StructuredData';
+
+const SITE_URL = 'https://www.keyawell.or.ug';
 
 export default function BlogPost() {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const { currentPost, posts, status } = useSelector((state) => state.blog);
+
+  const postPath = `/blog/${currentPost?.slug ?? currentPost?.id ?? slug ?? ''}`;
+  const canonicalUrl = `${SITE_URL}${postPath}`;
+  const imageUrl = currentPost?.image?.startsWith('http')
+    ? currentPost.image
+    : `${SITE_URL}${currentPost?.image ?? ''}`;
+  const description = currentPost?.excerpt || 'Read this health article from Keyawell Medical Center.';
+  const publishDate = currentPost?.date ? new Date(currentPost.date).toISOString() : undefined;
+  const articleSchema = currentPost
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: currentPost.title,
+        description,
+        image: [imageUrl],
+        datePublished: publishDate,
+        dateModified: publishDate,
+        mainEntityOfPage: canonicalUrl,
+        author: {
+          '@type': 'Person',
+          name: currentPost.author || 'Keyawell Medical Team',
+        },
+        publisher: {
+          '@type': 'MedicalOrganization',
+          name: 'Keyawell Medical Center',
+          logo: {
+            '@type': 'ImageObject',
+            url: `${SITE_URL}/Keyawell.png`,
+          },
+        },
+        about: ['HIV', 'MDR-TB', 'Tuberculosis', 'Uganda'],
+        keywords: 'HIV Uganda, MDR-TB Uganda, Tuberculosis Uganda, ART Uganda',
+      }
+    : null;
 
   useEffect(() => {
     if (posts.length > 0) {
@@ -21,6 +58,67 @@ export default function BlogPost() {
       dispatch(setCurrentPost(post));
     }
   }, [slug, posts, dispatch]);
+
+  useEffect(() => {
+    if (!currentPost) return undefined;
+
+    const previousTitle = document.title;
+    document.title = `${currentPost.title} | Keyawell Medical Center`;
+
+    const upsertMeta = (id, attribute, key, content) => {
+      let tag = document.getElementById(id);
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.id = id;
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute(attribute, key);
+      tag.setAttribute('content', content);
+    };
+
+    upsertMeta('seo-description', 'name', 'description', description);
+    upsertMeta('seo-robots', 'name', 'robots', 'index, follow, max-image-preview:large');
+    upsertMeta('seo-og-title', 'property', 'og:title', currentPost.title);
+    upsertMeta('seo-og-description', 'property', 'og:description', description);
+    upsertMeta('seo-og-type', 'property', 'og:type', 'article');
+    upsertMeta('seo-og-url', 'property', 'og:url', canonicalUrl);
+    upsertMeta('seo-og-image', 'property', 'og:image', imageUrl);
+    upsertMeta('seo-twitter-card', 'name', 'twitter:card', 'summary_large_image');
+    upsertMeta('seo-twitter-title', 'name', 'twitter:title', currentPost.title);
+    upsertMeta('seo-twitter-description', 'name', 'twitter:description', description);
+    upsertMeta('seo-twitter-image', 'name', 'twitter:image', imageUrl);
+
+    let canonicalTag = document.getElementById('seo-canonical');
+    if (!canonicalTag) {
+      canonicalTag = document.createElement('link');
+      canonicalTag.id = 'seo-canonical';
+      canonicalTag.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonicalTag);
+    }
+    canonicalTag.setAttribute('href', canonicalUrl);
+
+    return () => {
+      document.title = previousTitle;
+      const ids = [
+        'seo-description',
+        'seo-robots',
+        'seo-og-title',
+        'seo-og-description',
+        'seo-og-type',
+        'seo-og-url',
+        'seo-og-image',
+        'seo-twitter-card',
+        'seo-twitter-title',
+        'seo-twitter-description',
+        'seo-twitter-image',
+        'seo-canonical',
+      ];
+      ids.forEach((id) => {
+        const node = document.getElementById(id);
+        if (node) node.remove();
+      });
+    };
+  }, [canonicalUrl, currentPost, description, imageUrl]);
 
   if (status === 'loading') {
     return (
@@ -54,6 +152,7 @@ export default function BlogPost() {
       transition={{ duration: 0.5 }}
       className="container mx-auto px-4 py-12 max-w-4xl"
     >
+      {articleSchema && <StructuredData schema={articleSchema} id="blogpost-schema" />}
       <Breadcrumb
         items={[
           { label: 'Blog', path: '/blog' },

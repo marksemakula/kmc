@@ -15,7 +15,7 @@ interface BreadcrumbProps {
 }
 
 /** Canonical base URL used in schema markup. Update when the domain changes. */
-const BASE_URL = 'https://keyawell.or.ug';
+const BASE_URL = 'https://www.keyawell.or.ug';
 
 /**
  * Renders a visible breadcrumb trail and injects the matching

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap for faster discovery and indexing
+Sitemap: https://www.keyawell.or.ug/sitemap.xml
