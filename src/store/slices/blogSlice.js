@@ -34,7 +34,7 @@ const mockBlogPosts = [
   },
   {
     id: 4,
-    slug: "On-HIV&MDR-TB_Dr.Sajja_Kenneth",
+    slug: "On-HIV-and-MDR-TB-Dr-Sajja-Kenneth",
     title: "HIV and MDR‑TB in Uganda: What You Need to Know",
     excerpt: "Uganda has made remarkable progress against HIV, yet 1.5 million people still live with the virus and MDR‑TB cases are rising. Dr. Sajja Kenneth explains the current landscape, treatment options, and how to live and support loved ones through the journey.",
     date: "April 8, 2026",

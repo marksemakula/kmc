@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/blog/On-HIV&MDR-TB_Dr.Sajja_Kenneth",
+      "destination": "/blog/On-HIV-and-MDR-TB-Dr-Sajja-Kenneth",
+      "permanent": true
+    },
+    {
+      "source": "/blog/On-HIV%26MDR-TB_Dr.Sajja_Kenneth",
+      "destination": "/blog/On-HIV-and-MDR-TB-Dr-Sajja-Kenneth",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/(.*)",
