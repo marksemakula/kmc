@@ -13,8 +13,16 @@
   ],
   "rewrites": [
     {
-      "source": "/sitemap.xml/googlea1e355ade2afae58.html",
-      "destination": "/googlea1e355ade2afae58.html"
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
+    },
+    {
+      "source": "/site.webmanifest",
+      "destination": "/site.webmanifest"
     },
     {
       "source": "/(.*)",
