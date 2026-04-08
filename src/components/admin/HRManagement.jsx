@@ -14,7 +14,7 @@ export default function HRManagement() {
     dispatch(updateApplicationStatus({ id: applicationId, status: newStatus }));
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
     const exportData = applications.map(app => ({
       Name: app.fullName,
       Email: app.email,
@@ -24,7 +24,7 @@ export default function HRManagement() {
       Status: app.status,
       'Submission Date': new Date(app.submittedAt).toLocaleDateString()
     }));
-    exportToExcel(exportData, 'job-applications');
+    await exportToExcel(exportData, 'job-applications');
   };
 
   const filteredApplications = selectedStatus === 'all'

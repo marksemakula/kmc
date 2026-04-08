@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Breadcrumb from '../components/layout/Breadcrumb';
+import ReactMarkdown from 'react-markdown';
 
 export default function BlogPost() {
   const { id } = useParams();
@@ -101,10 +102,27 @@ export default function BlogPost() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          <p className="text-lg text-gray-700 leading-relaxed mb-4">
-            {currentPost.excerpt}
-          </p>
-          {/* Full content would go here */}
+          {currentPost.content ? (
+            <ReactMarkdown
+              components={{
+                h2: ({children}) => <h2 className="text-2xl font-bold text-gray-800 mt-8 mb-3">{children}</h2>,
+                h3: ({children}) => <h3 className="text-xl font-semibold text-gray-700 mt-6 mb-2">{children}</h3>,
+                p: ({children}) => <p className="text-lg text-gray-700 leading-relaxed mb-4">{children}</p>,
+                strong: ({children}) => <strong className="font-semibold text-gray-900">{children}</strong>,
+                hr: () => <hr className="my-8 border-gray-300" />,
+                ul: ({children}) => <ul className="list-disc list-inside mb-4 text-gray-700 space-y-1">{children}</ul>,
+                ol: ({children}) => <ol className="list-decimal list-inside mb-4 text-gray-700 space-y-1">{children}</ol>,
+                li: ({children}) => <li className="text-lg leading-relaxed">{children}</li>,
+                em: ({children}) => <em className="italic text-gray-600">{children}</em>,
+              }}
+            >
+              {currentPost.content}
+            </ReactMarkdown>
+          ) : (
+            <p className="text-lg text-gray-700 leading-relaxed mb-4">
+              {currentPost.excerpt}
+            </p>
+          )}
           <div className="border-t border-gray-200 pt-6 mt-8">
             <p className="text-gray-600">
               For more information about our services, please contact our team.

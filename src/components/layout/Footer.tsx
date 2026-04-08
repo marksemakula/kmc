@@ -36,7 +36,7 @@ const socialLinks: SocialLink[] = [
   { icon: <FaFacebook size={20} />, url: '#', label: 'Facebook' },
   { icon: <FaTwitter size={20} />, url: '#', label: 'Twitter' },
   { icon: <FaInstagram size={20} />, url: '#', label: 'Instagram' },
-  { icon: <FaLinkedin size={20} />, url: '#', label: 'LinkedIn' },
+  { icon: <FaLinkedin size={20} />, url: 'https://linkedin.com/company/keyawell-medical-center', label: 'LinkedIn' },
 ];
 
 const containerVariants = {
