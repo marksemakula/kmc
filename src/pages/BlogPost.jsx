@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentPost } from '../store/slices/blogSlice';
+import { setCurrentPost, fetchBlogPosts } from '../store/slices/blogSlice';
 import { motion } from 'framer-motion';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -49,6 +49,14 @@ export default function BlogPost() {
         keywords: 'HIV Uganda, MDR-TB Uganda, Tuberculosis Uganda, ART Uganda',
       }
     : null;
+
+  // If arriving directly via URL (reload / shared link), posts won't be in
+  // the store yet — fetch them now.
+  useEffect(() => {
+    if (posts.length === 0 && status === 'idle') {
+      dispatch(fetchBlogPosts());
+    }
+  }, [dispatch, posts.length, status]);
 
   useEffect(() => {
     if (posts.length > 0) {
@@ -120,7 +128,7 @@ export default function BlogPost() {
     };
   }, [canonicalUrl, currentPost, description, imageUrl]);
 
-  if (status === 'loading') {
+  if (status === 'loading' || (status === 'idle' && posts.length === 0)) {
     return (
       <div className="container mx-auto px-4 py-12 text-center">
         <div className="animate-pulse flex flex-col items-center">
