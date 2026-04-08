@@ -211,7 +211,7 @@ export default function Blog() {
                     <p className="text-gray-600 mb-4 flex-1">{post.excerpt}</p>
                     <div className="flex justify-between items-center mt-auto">
                       <span className="text-sm text-gray-500">{post.date}</span>
-                      <Link to={`/blog/${post.id}`} className="text-primary font-semibold hover:underline" onClick={() => dispatch(setCurrentPost(post))}>Read More</Link>
+                      <Link to={`/blog/${post.slug ?? post.id}`} className="text-primary font-semibold hover:underline" onClick={() => dispatch(setCurrentPost(post))}>Read More</Link>
                     </div>
                   </div>
                 </motion.div>
@@ -281,7 +281,7 @@ export default function Blog() {
                       <div className="flex justify-between items-center mt-auto">
                         <span className="text-sm text-gray-500">{post.date}</span>
                         <Link 
-                          to={`/blog/${post.id}`}
+                          to={`/blog/${post.slug ?? post.id}`}
                           className="text-primary font-semibold hover:underline transition-colors"
                           onClick={() => dispatch(setCurrentPost(post))}
                         >

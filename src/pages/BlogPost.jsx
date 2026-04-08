@@ -9,16 +9,18 @@ import Breadcrumb from '../components/layout/Breadcrumb';
 import ReactMarkdown from 'react-markdown';
 
 export default function BlogPost() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const dispatch = useDispatch();
   const { currentPost, posts, status } = useSelector((state) => state.blog);
 
   useEffect(() => {
     if (posts.length > 0) {
-      const post = posts.find(post => post.id.toString() === id);
+      const post = posts.find(
+        (item) => item.slug === slug || item.id.toString() === slug
+      );
       dispatch(setCurrentPost(post));
     }
-  }, [id, posts, dispatch]);
+  }, [slug, posts, dispatch]);
 
   if (status === 'loading') {
     return (
@@ -55,7 +57,7 @@ export default function BlogPost() {
       <Breadcrumb
         items={[
           { label: 'Blog', path: '/blog' },
-          { label: currentPost.title, path: `/blog/${currentPost.id}` },
+          { label: currentPost.title, path: `/blog/${currentPost.slug ?? currentPost.id}` },
         ]}
       />
       <Link 

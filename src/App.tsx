@@ -85,7 +85,7 @@ function AnimatedRoutes() {
           }
         />
         <Route
-          path="/blog/:id"
+          path="/blog/:slug"
           element={
             <motion.div
               variants={pageVariants}

@@ -4,6 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const mockBlogPosts = [
   {
     id: 1,
+    slug: "advancements-in-telemedicine",
     title: "Advancements in Telemedicine",
     excerpt: "Explore how telemedicine is revolutionizing patient care and accessibility.",
     date: "May 15, 2024",
@@ -13,6 +14,7 @@ const mockBlogPosts = [
   },
   {
     id: 2,
+    slug: "healthy-living-tips",
     title: "Healthy Living Tips",
     excerpt: "Simple daily habits that can significantly improve your overall health.",
     date: "April 28, 2024",
@@ -22,6 +24,7 @@ const mockBlogPosts = [
   },
   {
     id: 3,
+    slug: "new-pediatric-wing-opening",
     title: "New Pediatric Wing Opening",
     excerpt: "Our new state-of-the-art pediatric facility is now accepting patients.",
     date: "April 10, 2024",
@@ -31,6 +34,7 @@ const mockBlogPosts = [
   },
   {
     id: 4,
+    slug: "On-HIV&MDR-TB_Dr.Sajja_Kenneth",
     title: "HIV and MDR‑TB in Uganda: What You Need to Know",
     excerpt: "Uganda has made remarkable progress against HIV, yet 1.5 million people still live with the virus and MDR‑TB cases are rising. Dr. Sajja Kenneth explains the current landscape, treatment options, and how to live and support loved ones through the journey.",
     date: "April 8, 2026",
