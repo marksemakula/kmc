@@ -17,7 +17,6 @@ const mockBlogPosts = [
 
 ---
 
-## Introduction
 
 Postpartum haemorrhage (PPH) — defined as blood loss exceeding **500 ml within 24 hours of vaginal delivery** or **1000 ml following caesarean section** — remains the foremost direct cause of maternal mortality in Uganda. Despite national advancements in emergency obstetric care, PPH continues to claim the lives of approximately one in every fifty Ugandan women during their reproductive years.
 
@@ -25,7 +24,7 @@ As a general practitioner practising at Keyawell Medical Center, I have witnesse
 
 ---
 
-## Section One: Risk Factors for Postpartum Haemorrhage in the Ugandan Context
+## Risk Factors for Postpartum Haemorrhage
 
 Risk factors for PPH are conventionally categorised into antenatal, intrapartum, and postpartum contributors. In Uganda, particular attention must be paid to the following.
 
@@ -59,11 +58,11 @@ Risk factors for PPH are conventionally categorised into antenatal, intrapartum,
 
 ---
 
-## Section Two: What to Do — An Emergency Protocol for PPH in a Ugandan Health Facility
+## Emergency Protocol: What to Do
 
 The following sequential protocol assumes a basic district-level facility with access to oxytocin, misoprostol, and intravenous fluids. For community health workers or home-birth attendants, the priority is **recognition and immediate referral**.
 
-### First Response (within 5–10 minutes of diagnosis)
+### First Response
 
 1. **Call for assistance.** Mobilise the second health worker, midwife, or doctor. Designate one person to record vital signs and fluid balance.
 
@@ -85,7 +84,7 @@ The following sequential protocol assumes a basic district-level facility with a
 
 9. **Perform a systematic genital tract inspection.** Using a vaginal speculum or sterile gloves, examine the cervix, vaginal walls, and perineum for lacerations requiring suturing.
 
-### Second Response (if bleeding continues despite first response)
+### If Bleeding Continues
 
 - **Bimanual uterine compression.** Insert one fist into the anterior vaginal fornix while the abdominal hand compresses the uterine fundus against the fist. Maintain for up to 20 minutes.
 - **Administer tranexamic acid:** 1 gram IV over 10 minutes, repeated once after 30 minutes if bleeding persists. This antifibrinolytic is most effective when given within three hours of delivery.
@@ -94,7 +93,7 @@ The following sequential protocol assumes a basic district-level facility with a
 
 ---
 
-## Section Three: What NOT to Do — Critical Errors to Avoid
+## Critical Errors to Avoid
 
 In the urgency of PPH management, certain well-intentioned actions can worsen outcomes. The following are strictly discouraged:
 
@@ -112,31 +111,31 @@ In the urgency of PPH management, certain well-intentioned actions can worsen ou
 
 ---
 
-## Section Four: Investigations Needed — Diagnostic Pathways
+## Investigations
 
 In the acute setting of PPH, investigations guide resuscitation and identify underlying causes. However, they must **never delay immediate clinical action**.
 
-### Immediate (point-of-care) investigations
+### Immediate Investigations
 
 - **Haemoglobin or haematocrit:** A baseline value is helpful, but a normal result in early PPH does not exclude significant bleeding — haemodilution takes hours.
 - **Clotting assessment:** Observe a venous blood sample in a plain red-top tube. Failure to clot within 7–10 minutes suggests coagulopathy.
 - **Blood group and cross-match:** Essential for transfusion readiness. If cross-matching is unavailable, request O-negative or type-specific whole blood.
 
-### Subsequent investigations (within 1–2 hours, if stabilised)
+### After Stabilisation
 
 - **Full blood count**, repeated at 6 and 24 hours to track haemoglobin decline.
 - **Coagulation profile:** Prothrombin time, activated partial thromboplastin time, and fibrinogen level — a fibrinogen below 200 mg/dL is highly concerning.
 - **Renal function tests** to assess shock-related kidney injury.
 - **Point-of-care ultrasound** to rule out retained products of conception, intra-abdominal free fluid, or uterine rupture.
 
-### For women with recurrent or unexplained PPH
+### For Recurrent or Unexplained PPH
 
 - **Thyroid function tests** — occult hyperthyroidism can cause uterine atony.
 - **Von Willebrand factor assay** — inherited bleeding disorders may first present in the postpartum period.
 
 ---
 
-## Section Five: Recognising the Warning Signs
+## Warning Signs to Recognise
 
 All pregnant women in Uganda should be taught to recognise PPH warning signs before discharge. These signs apply to the first 24 hours (primary PPH) and up to six weeks postpartum (secondary PPH).
 
@@ -159,7 +158,7 @@ All pregnant women in Uganda should be taught to recognise PPH warning signs bef
 
 ---
 
-## Section Six: Recommended Lifestyle for Pregnant Women Across the Nine Months
+## Lifestyle Guidance Throughout Pregnancy
 
 Prevention of PPH begins long before labour. The following lifestyle recommendations, tailored to the Ugandan context, reduce risk through optimised maternal nutrition, infection control, and birth preparedness.
 
