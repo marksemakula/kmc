@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   applications: JSON.parse(localStorage.getItem('jobApplications')) || [],
   positions: JSON.parse(localStorage.getItem('jobPositions')) || [
-    { id: 1, title: 'Senior Doctor', department: 'Medical', status: 'open' },
+    { id: 1, title: 'Anaesthesiologist', department: 'Medical', status: 'open' },
     { id: 2, title: 'Registered Nurse', department: 'Nursing', status: 'open' },
     { id: 3, title: 'Laboratory Technician', department: 'Laboratory', status: 'open' },
     { id: 4, title: 'Medical Administrator', department: 'Administration', status: 'open' }
