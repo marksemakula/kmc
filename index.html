@@ -1,33 +1,36 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Keyawell Medical Center</title>
-    
-    <!-- Simplified Favicon Configuration -->
-    <link rel="icon" href="/Keyawell.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="/Keyawell.ico" type="image/x-icon">
-    
-    <!-- Preconnect to Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Cinzel:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!--
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keyawell Medical Center</title>
+
+  <!-- Simplified Favicon Configuration -->
+  <link rel="icon" href="/Keyawell.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/Keyawell.ico" type="image/x-icon">
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Cinzel:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!--
       ──────────────────────────────────────────────────────────────────────────
       Schema.org structured data — site-level (static, lives here in the HTML)
       Page-level schemas (BreadcrumbList etc.) are injected by React components.
       ──────────────────────────────────────────────────────────────────────────
     -->
 
-    <!-- WebSite + SitelinksSearchBox ---------------------------------------->
-    <!--
+  <!-- WebSite + SitelinksSearchBox ---------------------------------------->
+  <!--
       The SitelinksSearchBox schema asks Google to show an inline search box
       next to our sitelink.  The urlTemplate must point to a real search page;
       we use /blog?q= because the Blog page filters posts by that parameter.
     -->
-    <script type="application/ld+json">
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -45,8 +48,8 @@
     }
     </script>
 
-    <!-- Organization (helps Google build sitelinks for the homepage) -------->
-    <script type="application/ld+json">
+  <!-- Organization (helps Google build sitelinks for the homepage) -------->
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "MedicalOrganization",
@@ -70,12 +73,12 @@
     }
     </script>
 
-    <!-- SiteNavigationElement — explicit nav links for Google's sitelinks ---->
-    <!--
+  <!-- SiteNavigationElement — explicit nav links for Google's sitelinks ---->
+  <!--
       Listing the main navigation items with SiteNavigationElement gives Google
       strong signals about which pages deserve sitelinks in search results.
     -->
-    <script type="application/ld+json">
+  <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
@@ -114,9 +117,13 @@
       ]
     }
     </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9996887835030025"
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
