@@ -33,8 +33,8 @@ const contactInfo: ContactInfo[] = [
 ];
 
 const socialLinks: SocialLink[] = [
-  { icon: <FaFacebook size={20} />, url: '#', label: 'Facebook' },
-  { icon: <FaTwitter size={20} />, url: '#', label: 'Twitter' },
+  { icon: <FaFacebook size={20} />, url: 'https://www.facebook.com/keyawellmedical', label: 'Facebook' },
+  { icon: <FaTwitter size={20} />, url: 'https://www.x.com/keyawellmedical', label: 'Twitter' },
   { icon: <FaInstagram size={20} />, url: '#', label: 'Instagram' },
   { icon: <FaLinkedin size={20} />, url: 'https://linkedin.com/company/keyawell-medical-center', label: 'LinkedIn' },
 ];
