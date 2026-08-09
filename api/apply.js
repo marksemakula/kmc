@@ -2,7 +2,7 @@ import Busboy from 'busboy';
 import nodemailer from 'nodemailer';
 
 const MAX_ATTACHMENT_BYTES = 4 * 1024 * 1024;
-const RECIPIENT = 'admin@kayewell.or.ug';
+const RECIPIENT = 'admin@keyawell.or.ug';
 
 function parseMultipart(req) {
   return new Promise((resolve, reject) => {

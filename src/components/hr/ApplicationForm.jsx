@@ -186,7 +186,7 @@ export default function ApplicationForm({ job, onClose }) {
       }
     } catch (err) {
       setStatus('idle');
-      setErrorMsg('Something went wrong sending your application. Please try again, or email us directly at admin@kayewell.or.ug.');
+      setErrorMsg('Something went wrong sending your application. Please try again, or email us directly at admin@keyawell.or.ug.');
     }
   };
 
