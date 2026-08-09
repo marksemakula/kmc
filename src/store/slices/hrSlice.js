@@ -5,7 +5,7 @@ const initialState = {
   positions: JSON.parse(localStorage.getItem('jobPositions')) || [
     {
       id: 1,
-      title: 'Anaesthesiologist',
+      title: 'Anaesthetic Officer',
       department: 'Medical',
       status: 'open',
       description: {
