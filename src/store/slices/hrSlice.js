@@ -90,22 +90,22 @@ const initialState = {
             heading: 'Key Duties and Responsibilities',
             type: 'list',
             items: [
-              { label: 'Patient Care', text: 'Assess physical needs, formulate nursing care plans, monitor vital signs, and execute medical orders.' },
-              { label: 'Treatment Administration', text: 'Dispense prescribed drugs, manage intravenous lines, and dress wounds safely.' },
-              { label: 'Emergency Response', text: 'Triage urgent cases, deliver first aid, and stabilize critical patients during medical crises.' },
-              { label: 'Infection Control', text: 'Enforce sanitation protocols, sterilize tools, and manage safe medical waste disposal.' },
-              { label: 'Record Keeping', text: 'Document accurate patient data, chart progress notes, and report shifts clearly.' },
-              { label: 'Patient Education', text: 'Instruct individuals and families on home care, nutrition, and disease prevention.' }
+              'Collect, receive, label, and process biological or physical test specimens accurately following Standard Operating Procedures (SOPs).',
+              'Perform diagnostic laboratory investigations, tests, and analyses (such as parasitology, hematology, microbiology, or biochemistry).',
+              'Maintain comprehensive registers and logs of all requested tests, sample results, and monthly inventory reports.',
+              'Clean, sterilize, calibrate, and properly maintain laboratory work areas, glassware, and diagnostic equipment.',
+              'Ensure strict adherence to safety, bio-security protocols, and proper laboratory waste disposal regulations.',
+              'Coordinate results and resolve queries promptly with clinical, research, or academic teams.'
             ]
           },
           {
-            heading: 'Qualifications and Requirements',
+            heading: 'Minimum Qualifications & Requirements',
             type: 'list',
             items: [
-              { label: 'Education', text: 'Diploma in Nursing from a recognized, accredited institution.' },
-              { label: 'Licensure', text: 'Valid registration and current practicing license from the Uganda Nurses and Midwives Council.' },
-              { label: 'Experience', text: 'Clinical experience in a hospital or health-center setting (often 1 to 3 years required depending on the employer).' },
-              { label: 'Skills', text: 'Strong communication, teamwork, critical thinking, and basic computer literacy.' }
+              { label: 'Education', text: 'Diploma in Medical Laboratory Sciences, Science Laboratory Technology, Chemistry, or Biology from a recognized university or training institute.' },
+              { label: 'Registration', text: 'Registration with the Allied Health Professionals Council (AHPC) in Uganda (mandatory for clinical/medical laboratory roles).' },
+              { label: 'Experience', text: '0 to 2+ years of active working experience in a reputable hospital, research institution, or governmental laboratory setting.' },
+              { label: 'Competencies', text: 'High attention to detail, strong integrity, good record-keeping skills, and computer literacy.' }
             ]
           }
         ]
