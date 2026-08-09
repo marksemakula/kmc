@@ -113,7 +113,7 @@ const initialState = {
     },
     {
       id: 4,
-      title: 'Medical Administrator',
+      title: 'Assistant Hospital Administrator',
       department: 'Administration',
       status: 'open',
       description: {
