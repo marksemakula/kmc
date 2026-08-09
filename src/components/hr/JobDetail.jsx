@@ -15,7 +15,13 @@ function BulletList({ items }) {
   return (
     <ul className="list-disc list-inside space-y-1 text-gray-700">
       {items.map((item, i) => (
-        <li key={i}>{item}</li>
+        <li key={i}>
+          {typeof item === 'string' ? item : (
+            <>
+              <span className="font-semibold">{item.label}:</span> {item.text}
+            </>
+          )}
+        </li>
       ))}
     </ul>
   );
@@ -50,35 +56,17 @@ export default function JobDetail({ job, onApply }) {
         </div>
       </div>
 
-      {description ? (
+      {description?.sections ? (
         <div>
-          <Section title="Job Purpose">
-            <p className="text-gray-700">{description.purpose}</p>
-          </Section>
-
-          {description.keyOutputs && (
-            <Section title="Key Outputs">
-              <BulletList items={description.keyOutputs} />
+          {description.sections.map((section, i) => (
+            <Section key={i} title={section.heading}>
+              {section.type === 'paragraph' ? (
+                <p className="text-gray-700">{section.content}</p>
+              ) : (
+                <BulletList items={section.items} />
+              )}
             </Section>
-          )}
-
-          {description.keyFunctions && (
-            <Section title="Key Functions">
-              <BulletList items={description.keyFunctions} />
-            </Section>
-          )}
-
-          {description.qualifications && (
-            <Section title="Person Specifications — Qualifications">
-              <BulletList items={description.qualifications} />
-            </Section>
-          )}
-
-          {description.competences && (
-            <Section title="Person Specifications — Competences">
-              <BulletList items={description.competences} />
-            </Section>
-          )}
+          ))}
         </div>
       ) : (
         <p className="text-gray-600 mb-6">
