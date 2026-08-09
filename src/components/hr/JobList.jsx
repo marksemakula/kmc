@@ -34,7 +34,7 @@ export default function JobList({ positions, onJobSelect }) {
               onClick={() => onJobSelect(position)}
               className="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded transition duration-300"
             >
-              Apply Now
+              View Details
             </button>
           </div>
         </motion.div>

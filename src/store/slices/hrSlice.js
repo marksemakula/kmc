@@ -6,7 +6,46 @@ const initialState = {
     { id: 1, title: 'Anaesthesiologist', department: 'Medical', status: 'open' },
     { id: 2, title: 'Registered Nurse', department: 'Nursing', status: 'open' },
     { id: 3, title: 'Laboratory Technician', department: 'Laboratory', status: 'open' },
-    { id: 4, title: 'Medical Administrator', department: 'Administration', status: 'open' }
+    { id: 4, title: 'Medical Administrator', department: 'Administration', status: 'open' },
+    {
+      id: 5,
+      title: 'Medical Officer',
+      department: 'Medical',
+      reportsTo: 'Associate Consultant - Internal Medicine / Obs Gyn',
+      status: 'open',
+      description: {
+        purpose: 'To provide and maintain curative and preventive health care services in accordance with National Health Service standards.',
+        keyOutputs: [
+          'Patients diagnosed, treated, reviewed & evaluated',
+          'Public health practices promoted',
+          'Research activities & Health data collected',
+          'Outreach Health Service Programmes implemented',
+          'Continued professional development done',
+          'Professional and Service codes of conduct and ethics enforced',
+          'Periodic reports prepared',
+          'Accountability for financial and other resources carried out'
+        ],
+        keyFunctions: [
+          'Diagnosing, treating and managing patients',
+          'Promoting public health practices in the community',
+          'Participating in research activities and health data collection',
+          'Participating in continued professional development'
+        ],
+        qualifications: [
+          'Must have an MB.Ch.B or its equivalent from a recognized Institution',
+          'Must be registered and licensed with Uganda Medical and Dental Practitioners Council'
+        ],
+        competences: [
+          'Planning, organizing and coordinating',
+          'Concern for quality and standards',
+          'Communication',
+          'Ethics and integrity',
+          'Time management',
+          'Team building',
+          'Information management'
+        ]
+      }
+    }
   ],
   loading: false,
   error: null

@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import JobList from '../components/hr/JobList';
+import JobDetail from '../components/hr/JobDetail';
 import ApplicationForm from '../components/hr/ApplicationForm';
 import Breadcrumb from '../components/layout/Breadcrumb';
 
 export default function Careers() {
   const [selectedJob, setSelectedJob] = useState(null);
+  const [showApplicationForm, setShowApplicationForm] = useState(false);
   const positions = useSelector(state => state.hr.positions);
 
   return (
@@ -32,12 +34,16 @@ export default function Careers() {
             >
               ← Back to Jobs
             </button>
-            <ApplicationForm job={selectedJob} />
+            <JobDetail job={selectedJob} onApply={() => setShowApplicationForm(true)} />
           </motion.div>
         ) : (
           <JobList positions={positions} onJobSelect={setSelectedJob} />
         )}
       </motion.div>
+
+      {showApplicationForm && selectedJob && (
+        <ApplicationForm job={selectedJob} onClose={() => setShowApplicationForm(false)} />
+      )}
     </div>
   );
 }
