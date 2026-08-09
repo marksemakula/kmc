@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ReferralForm from '../components/referral/ReferralForm';
+import BookingForm from '../components/referral/BookingForm';
 import { FaClipboardList, FaCalendarAlt } from 'react-icons/fa';
 import Breadcrumb from '../components/layout/Breadcrumb';
 
@@ -55,11 +56,7 @@ export default function Referral() {
           {activeTab === 'referral' ? (
             <ReferralForm />
           ) : (
-            <div className="text-center py-8">
-              <h2 className="text-xl text-gray-600">
-                Direct appointment booking coming soon...
-              </h2>
-            </div>
+            <BookingForm />
           )}
         </motion.div>
       </motion.div>
