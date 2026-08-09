@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FaBriefcase, FaBuilding, FaUserTie } from 'react-icons/fa';
+import ShareButton from './ShareButton';
 
 function Section({ title, children }) {
   return (
@@ -85,12 +86,18 @@ export default function JobDetail({ job, onApply }) {
         </p>
       )}
 
-      <button
-        onClick={onApply}
-        className="w-full md:w-auto bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded transition duration-300"
-      >
-        Apply Now
-      </button>
+      <div className="flex flex-col md:flex-row gap-3">
+        <button
+          onClick={onApply}
+          className="w-full md:w-auto bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded transition duration-300"
+        >
+          Apply Now
+        </button>
+        <ShareButton
+          url={`${window.location.origin}${window.location.pathname}?job=${job.id}`}
+          title={`${job.title} — Keyawell Medical Center`}
+        />
+      </div>
     </motion.div>
   );
 }

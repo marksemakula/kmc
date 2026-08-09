@@ -33,9 +33,9 @@ export default function ApplicationForm({ job, onClose }) {
     district: '',
     expectedPay: '',
     education: '',
-    workHistory: '',
     availableFrom: ''
   });
+  const [workHistory, setWorkHistory] = useState([{ employer: '', period: '', duties: '' }]);
   const [qualifications, setQualifications] = useState([{ institution: '', fieldOfStudy: '' }]);
   const [applicationLetter, setApplicationLetter] = useState(null);
   const [cv, setCv] = useState(null);
@@ -46,6 +46,18 @@ export default function ApplicationForm({ job, onClose }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const updateWorkHistory = (index, field, value) => {
+    setWorkHistory(prev => prev.map((w, i) => (i === index ? { ...w, [field]: value } : w)));
+  };
+
+  const addWorkHistory = () => {
+    setWorkHistory(prev => [...prev, { employer: '', period: '', duties: '' }]);
+  };
+
+  const removeWorkHistory = (index) => {
+    setWorkHistory(prev => prev.filter((_, i) => i !== index));
   };
 
   const updateQualification = (index, field, value) => {
@@ -125,6 +137,11 @@ export default function ApplicationForm({ job, onClose }) {
       .map(q => `${q.fieldOfStudy || '—'} at ${q.institution || '—'}`)
       .join('; ');
 
+    const workHistorySummary = workHistory
+      .filter(w => w.employer || w.period || w.duties)
+      .map(w => `${w.employer || '—'} (${w.period || '—'}): ${w.duties || '—'}`)
+      .join('\n');
+
     const fileName = `${(formData.fullName.trim() || 'Applicant').replace(/\s+/g, '_')}_Application_${job.title.replace(/\s+/g, '_')}.pdf`;
 
     const payload = new FormData();
@@ -137,7 +154,7 @@ export default function ApplicationForm({ job, onClose }) {
     payload.append('Expected Pay', formData.expectedPay);
     payload.append('Highest Level of Education', formData.education);
     payload.append('Available to Start', formData.availableFrom);
-    payload.append('Work History', formData.workHistory);
+    payload.append('Work History', workHistorySummary);
     payload.append('Skills & Qualifications', qualificationsSummary);
     payload.append('attachment', mergedBlob, fileName);
 
@@ -160,7 +177,7 @@ export default function ApplicationForm({ job, onClose }) {
           expectedPay: formData.expectedPay,
           education: formData.education,
           availableFrom: formData.availableFrom,
-          workHistory: formData.workHistory,
+          workHistory: workHistorySummary,
           qualifications: qualificationsSummary
         }));
         setStatus('success');
@@ -321,16 +338,57 @@ export default function ApplicationForm({ job, onClose }) {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700">Work History</label>
-                  <textarea
-                    name="workHistory"
-                    required
-                    placeholder="List previous employers, roles and dates"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-                    rows="3"
-                    value={formData.workHistory}
-                    onChange={handleChange}
-                  />
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm font-medium text-gray-700">Work History</label>
+                    <button
+                      type="button"
+                      onClick={addWorkHistory}
+                      className="text-primary hover:text-primary-dark text-sm flex items-center gap-1"
+                    >
+                      <FaPlus size={12} /> Add another
+                    </button>
+                  </div>
+                  <div className="space-y-3">
+                    {workHistory.map((w, index) => (
+                      <div key={index} className="border border-gray-200 rounded-md p-3 space-y-2">
+                        <div className="flex items-start gap-2">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 flex-1">
+                            <input
+                              type="text"
+                              placeholder="Employer"
+                              className="rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+                              value={w.employer}
+                              onChange={(e) => updateWorkHistory(index, 'employer', e.target.value)}
+                            />
+                            <input
+                              type="text"
+                              placeholder="Period (e.g. Jan 2020 - Dec 2023)"
+                              className="rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+                              value={w.period}
+                              onChange={(e) => updateWorkHistory(index, 'period', e.target.value)}
+                            />
+                          </div>
+                          {workHistory.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => removeWorkHistory(index)}
+                              className="text-red-500 hover:text-red-700 p-2"
+                              aria-label="Remove"
+                            >
+                              <FaTrash size={14} />
+                            </button>
+                          )}
+                        </div>
+                        <textarea
+                          placeholder="Duties / responsibilities"
+                          className="block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+                          rows="2"
+                          value={w.duties}
+                          onChange={(e) => updateWorkHistory(index, 'duties', e.target.value)}
+                        />
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div>
