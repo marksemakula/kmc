@@ -18,9 +18,11 @@ export default function ShareButton({ url, title }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const shareText = `${title}\n${url}`;
+
   const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(shareText);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -45,7 +47,7 @@ export default function ShareButton({ url, title }) {
   };
 
   const shareToWhatsApp = () => {
-    openShareWindow(`https://wa.me/?text=${encodeURIComponent(`${title}\n${url}`)}`);
+    openShareWindow(`https://wa.me/?text=${encodeURIComponent(shareText)}`);
   };
 
   const shareToTikTok = async () => {
