@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FaBriefcase, FaBuilding, FaUserTie } from 'react-icons/fa';
 import ShareButton from './ShareButton';
+import { buildJobShareUrl, getJobShareTitle } from '../../utils/jobShare';
 
 function Section({ title, children }) {
   return (
@@ -82,8 +83,8 @@ export default function JobDetail({ job, onApply }) {
           Apply Now
         </button>
         <ShareButton
-          url={`${window.location.origin}${window.location.pathname}?job=${job.id}`}
-          title={`${job.title} — Keyawell Medical Center`}
+          url={buildJobShareUrl(`${window.location.origin}${window.location.pathname}`, job)}
+          title={getJobShareTitle(job)}
         />
       </div>
     </motion.div>

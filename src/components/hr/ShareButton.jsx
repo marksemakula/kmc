@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { FaShareAlt, FaLink, FaCheck } from 'react-icons/fa';
+import { FaShareAlt, FaLink, FaCheck, FaWhatsapp } from 'react-icons/fa';
 import { FaXTwitter, FaLinkedin, FaFacebook, FaTiktok } from 'react-icons/fa6';
 
 export default function ShareButton({ url, title }) {
@@ -44,6 +44,10 @@ export default function ShareButton({ url, title }) {
     openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`);
   };
 
+  const shareToWhatsApp = () => {
+    openShareWindow(`https://wa.me/?text=${encodeURIComponent(`${title}\n${url}`)}`);
+  };
+
   const shareToTikTok = async () => {
     await copyLink();
     setTiktokHint(true);
@@ -84,6 +88,13 @@ export default function ShareButton({ url, title }) {
             className="w-full flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-50 text-gray-700 text-sm"
           >
             <FaLinkedin className="text-[#0A66C2]" /> Share on LinkedIn
+          </button>
+          <button
+            type="button"
+            onClick={shareToWhatsApp}
+            className="w-full flex items-center gap-3 px-3 py-2 rounded hover:bg-gray-50 text-gray-700 text-sm"
+          >
+            <FaWhatsapp className="text-[#25D366]" /> Share on WhatsApp
           </button>
           <button
             type="button"

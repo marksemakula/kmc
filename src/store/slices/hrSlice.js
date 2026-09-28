@@ -80,6 +80,38 @@ const initialState = {
       }
     },
     {
+      id: 6,
+      title: 'Registered Midwife',
+      department: 'Nursing',
+      status: 'open',
+      description: {
+        sections: [
+          {
+            heading: 'Key Duties and Responsibilities',
+            type: 'list',
+            items: [
+              'Provide skilled antenatal, intrapartum, and postnatal care to mothers and newborns.',
+              'Monitor maternal and fetal wellbeing, detect complications early, and initiate timely referrals when needed.',
+              'Assist with normal deliveries and manage obstetric emergencies in line with approved clinical protocols.',
+              'Provide health education and counseling on pregnancy, childbirth, newborn care, breastfeeding, and family planning.',
+              'Maintain accurate patient records, documentation, and continuity of care across shifts.',
+              'Collaborate with doctors, nurses, and support staff to ensure safe and respectful maternity services.'
+            ]
+          },
+          {
+            heading: 'Qualifications and Requirements',
+            type: 'list',
+            items: [
+              { label: 'Education', text: 'Diploma in Midwifery from a recognized, accredited nursing or midwifery institution.' },
+              { label: 'Licensure', text: 'Valid registration and current practicing license with the Uganda Nurses and Midwives Council.' },
+              { label: 'Experience', text: 'Practical experience in maternity or reproductive health services is an advantage.' },
+              { label: 'Skills', text: 'Strong clinical judgment, empathy, communication, teamwork, and attention to maternal safety.' }
+            ]
+          }
+        ]
+      }
+    },
+    {
       id: 3,
       title: 'Laboratory Technician',
       department: 'Laboratory',
