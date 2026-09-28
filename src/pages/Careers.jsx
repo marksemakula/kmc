@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import JobList from '../components/hr/JobList';
 import JobDetail from '../components/hr/JobDetail';
 import ApplicationForm from '../components/hr/ApplicationForm';
 import Breadcrumb from '../components/layout/Breadcrumb';
-import { getJobShareDescription, getJobShareTitle } from '../utils/jobShare';
+import { getJobShareDescription, getJobShareTitle, getJobSlug } from '../utils/jobShare';
 
 export default function Careers() {
   const [selectedJob, setSelectedJob] = useState(null);
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const positions = useSelector(state => state.hr.positions);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { slug } = useParams();
 
   useEffect(() => {
     const jobId = searchParams.get('job');
@@ -26,12 +27,20 @@ export default function Careers() {
       }
     }
 
+    if (slug) {
+      const match = positions.find(p => getJobSlug(p) === slug);
+      if (match) {
+        setSelectedJob(match);
+        return;
+      }
+    }
+
     if (jobTitle && !selectedJob) {
       const match = positions.find(p => p.title === decodeURIComponent(jobTitle));
       if (match) setSelectedJob(match);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [positions, searchParams]);
+  }, [positions, searchParams, slug]);
 
   useEffect(() => {
     if (!selectedJob) {

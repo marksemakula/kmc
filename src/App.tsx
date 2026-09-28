@@ -124,6 +124,19 @@ function AnimatedRoutes() {
           }
         />
         <Route
+          path="/job/:slug"
+          element={
+            <motion.div
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+            >
+              <Careers />
+            </motion.div>
+          }
+        />
+        <Route
           path="/admin"
           element={
             <motion.div

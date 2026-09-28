@@ -28,6 +28,10 @@
   ],
   "rewrites": [
     {
+      "source": "/job/:slug",
+      "destination": "/api/job-preview?slug=:slug"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

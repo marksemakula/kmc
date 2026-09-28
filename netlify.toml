@@ -15,6 +15,12 @@
   [headers.values]
     Content-Type = "text/plain; charset=utf-8"
 
+# Job preview pages must serve HTML with OG/Twitter tags before the SPA fallback.
+[[redirects]]
+  from = "/job/*"
+  to = "/.netlify/functions/job-preview"
+  status = 200
+
 # SPA catch-all — static files are served before this rule is evaluated
 [[redirects]]
   from = "/*"
